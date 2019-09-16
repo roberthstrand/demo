@@ -5,17 +5,17 @@ variable "location" {
     default  = "west europe"
 }
 resource "azurerm_resource_group" "terraform" {
-    name     = "rg-${var.deploy-name}"
+    name     = "rg-${var.deployname}"
     location = "${var.location}"
 }
 module "aci" {
     source                = "Azure/aci/azurerm"
-    dns_name_label        = "${var.deploy-name}-container"
+    dns_name_label        = "${var.deployname}-container"
     os_type               = "linux"
     image_name            = "nginx"
     resource_group_name   = "${azurerm_resource_group.terraform.name}" # Fetch name given to Resource Group
-    container_group_name  = "web-${var.deploy-name}"
-    container_name        = "container-${var.deploy-name}"
+    container_group_name  = "web-${var.deployname}"
+    container_name        = "container-${var.deployname}"
     location              = "${var.location}"
     cpu_core_number       = "1"
     memory_size           = "1"
