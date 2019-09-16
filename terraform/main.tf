@@ -1,4 +1,6 @@
-variable "deployname" {}
+variable "deployname" {
+    default = "tftest"
+}
 variable "location" {
     default  = "west europe"
 }
