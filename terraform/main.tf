@@ -1,4 +1,4 @@
-variable "deploy-name" {}
+variable "deployname" {}
 variable "location" {
     default  = "west europe"
 }
