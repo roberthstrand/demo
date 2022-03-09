@@ -18,10 +18,12 @@ resource "azurerm_subnet" "cluster" {
 }
 
 module "aks" {
+  for_each = toset(var.clients)
+
   source  = "crayon/aks/azurerm"
   version = "1.7.0"
 
-  name                      = "aks-tf-demo"
+  name                      = format("aks-tf-demo-%s", each.value)
   resource_group            = azurerm_resource_group.cluster.name
   admin_groups              = data.azuread_groups.admins.object_ids
   kubernetes_version_prefix = "1.22"
