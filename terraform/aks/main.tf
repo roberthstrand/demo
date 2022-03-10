@@ -1,10 +1,10 @@
 resource "azurerm_resource_group" "cluster" {
-  name     = "rg-demo-aks"
+  name     = "rg-tf-demo"
   location = "westeurope"
 }
 
 resource "azurerm_virtual_network" "cluster" {
-  name                = "cluster-vnet"
+  name                = "vnet-tf-demo"
   location            = azurerm_resource_group.cluster.location
   resource_group_name = azurerm_resource_group.cluster.name
   address_space       = ["10.0.0.0/16"]
@@ -18,12 +18,10 @@ resource "azurerm_subnet" "cluster" {
 }
 
 module "aks" {
-  for_each = toset(var.clients)
-
   source  = "crayon/aks/azurerm"
   version = "1.7.0"
 
-  name                      = format("aks-tf-demo-%s", each.value)
+  name                      = "aks-tf-demo"
   resource_group            = azurerm_resource_group.cluster.name
   admin_groups              = data.azuread_groups.admins.object_ids
   kubernetes_version_prefix = "1.22"
