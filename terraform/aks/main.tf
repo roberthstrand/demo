@@ -33,7 +33,7 @@ module "aks" {
     name = "default"
 
     vm_size             = "Standard_D4s_v4"
-    node_count          = 1
+    node_count          = 2
     enable_auto_scaling = false
     min_count           = null
     max_count           = null
